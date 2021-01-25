@@ -104,7 +104,6 @@ class LinkController extends Controller
             ClickHelper::recordClick($link, $request);
         }
         Log::debug(print_r(redirect()->to($long_url, 301), true));
-        Log::debug(print_r(redirect()->away($long_url, 301), true));
         // Redirect to final destination
         return redirect()->to($long_url, 301);
     }
