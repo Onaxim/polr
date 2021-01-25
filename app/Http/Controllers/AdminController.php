@@ -1,20 +1,24 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Hash;
 
 use App\Models\Link;
 use App\Models\User;
 use App\Helpers\UserHelper;
-
-class AdminController extends Controller {
+// Claimed
+class AdminController extends Controller
+{
     /**
      * Show the admin panel, and process setting changes.
      *
      * @return Response
      */
 
-    public function displayAdminPage(Request $request) {
+    public function displayAdminPage(Request $request)
+    {
         if (!$this->isLoggedIn()) {
             return redirect(route('login'))->with('error', 'Please login to access your dashboard.');
         }
@@ -39,7 +43,8 @@ class AdminController extends Controller {
         ]);
     }
 
-    public function changePassword(Request $request) {
+    public function changePassword(Request $request)
+    {
         if (!$this->isLoggedIn()) {
             return abort(404);
         }
@@ -51,8 +56,7 @@ class AdminController extends Controller {
         if (UserHelper::checkCredentials($username, $old_password) == false) {
             // Invalid credentials
             return redirect('admin')->with('error', 'Current password invalid. Try again.');
-        }
-        else {
+        } else {
             // Credentials are correct
             $user = UserHelper::getUserByUsername($username);
             $user->password = Hash::make($new_password);
